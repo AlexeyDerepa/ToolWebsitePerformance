@@ -1,0 +1,158 @@
+﻿@model WSP.Entities.SiteAddress
+
+@{
+    ViewBag.Title = "Tool for evaluating website performance";
+}
+
+<div ng-app="plunker" ng-init="foundPages='0';Results=''">
+    <div ng-controller="MainCtrl">
+
+        <div id="header">
+            <div class="title">Web site performance.</div>
+            <div class="percentage">found {{foundPages}} pages. Total time: {{totalTime}}. Average speed: {{averageSpeed}} pages/second</div>
+        </div>
+
+        <flot dataset="dataset" options="options" height="300px"></flot>
+
+        <div id="loading" style="display: none; color: Red; font-weight: bold; height: 10px;">
+            <p>Request is processed...</p>
+        </div>
+
+        <div style=" margin-left: auto; margin-right: auto;width : 310px; margin-top:20px;">
+            <form name="answerForm">
+                @*<input type="hidden" ng-model="Guid" />*@
+                <input class="form-control " ng-model="Target" placeholder="Address like https://ru.tsn.ua" />
+                <br />
+                <button class="btn btn-default  " ng-click="findSitemap(Target)">Find sitemap</button>
+                <button class="btn btn-default  col-lg-offset-0" ng-click="getPing(Target)">Ping site</button>
+                <button class="btn btn-default  col-lg-offset-0" ng-click="getHistory()">History</button>
+            </form>
+        </div>
+        <div ng-style="somestyle">{{Results}}</div>
+        @*<span>An All history of requests of addresses. Total count: {{totalAddresses}}</span>*@
+        <div ng-show="data.visible">
+            <table id="mytable" class="table table-striped">
+                <thead>
+                    <tr class="table-head">
+                        <th style="width:100px;">#</th>
+                        <th style="width:100px;">XML</th>
+                        <th>ADDRESS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in Logs">
+                        <th>
+                            <div>
+                                {{item.Id}}
+                            </div>
+                        </th>
+                        <th>
+                            <div>
+                                <a href="#" ng-click="getXmlHistory(item.Id)">XML</a>
+                                @*{{item.Id}}*@
+                            </div>
+                        </th>
+                        <th>
+                            <div>
+                                {{item.UrlAddress}}
+                            </div>
+                        </th>
+                    </tr>
+                </tbody>
+            </table>
+            <div style=" margin-left: auto; margin-right: auto;width : 550px; ">
+                <uib-pagination total-items="totalAddresses" ng-model="currentPage" items-per-page="itemsPerPage" max-size="maxSize" class="pagination-sm" boundary-link-numbers="true" rotate="true"></uib-pagination>
+            </div>
+
+        </div>
+        <div ng-show="dataXML.visible">
+            <table id="mytable" class="table table-striped">
+                <thead>
+                    <tr class="table-head">
+                        <th style="width:100px;">#</th>
+                        <th style="width:100px;">Min time</th>
+                        <th style="width:100px;">Max time</th>
+                        <th>XML name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="itemX in LogsXML">
+                        <th>
+                            <div>
+                                {{itemX.Id}}
+                            </div>
+                        </th>
+                        <th>
+                            <div>
+                                {{itemX.TimeMin}}
+                            </div>
+                        </th>
+                        <th>
+                            <div>
+                                {{itemX.TimeMax}}
+                            </div>
+                        </th>
+                        <th>
+                            <div>
+                                <a href="#" ng-click="getHtmlHistory(itemX.Id)">{{itemX.NameSateMape}}</a>
+                            </div>
+                        </th>
+                    </tr>
+                </tbody>
+            </table>
+            <div style=" margin-left: auto; margin-right: auto;width : 550px; ">
+                <uib-pagination total-items="totalAddressesXML" ng-model="currentPageXML" items-per-page="itemsPerPageXML" max-size="maxSizeXML" class="pagination-sm" boundary-link-numbers="true" rotate="true"></uib-pagination>
+            </div>
+
+        </div>
+        <div ng-show="dataHTML.visible">
+            <table id="mytable" class="table table-striped">
+                <thead>
+                    <tr class="table-head">
+                        <th style="width:100px;">#</th>
+                        <th style="width:100px;">Min time</th>
+                        <th style="width:100px;">Max time</th>
+                        <th>Address</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="itemHTML in LogsHTML">
+                        <th>
+                            <div>
+                                {{itemHTML.Number}}
+                            </div>
+                        </th>
+                        <th>
+                            <div>
+                                {{itemHTML.TimeMin}}
+                            </div>
+                        </th>
+                        <th>
+                            <div>
+                                {{itemHTML.TimeMax}}
+                            </div>
+                        </th>
+                        <th>
+                            <div>
+                                <a href="{{itemHTML.NameSitePage}}" target="_blank">{{itemHTML.NameSitePage}}</a>
+                            </div>
+                        </th>
+                    </tr>
+                </tbody>
+            </table>
+            <div style=" margin-left: auto; margin-right: auto;width : 550px; ">
+                <uib-pagination total-items="totalAddressesHTML" ng-model="currentPageHTML" items-per-page="itemsPerPageHTML" max-size="maxSizeHTML" class="pagination-sm" boundary-link-numbers="true" rotate="true"></uib-pagination>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
