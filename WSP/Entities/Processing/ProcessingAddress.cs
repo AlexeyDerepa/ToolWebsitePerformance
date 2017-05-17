@@ -61,10 +61,13 @@ namespace WSP.Entities.Processing
             this._db.SiteAddresses.Add(sa);
             this._db.SaveChanges();
 
-            SearchSitePage(
-                SearchSiteMap(siteAddress.UrlAddress),
-                sa
-                );
+            List<string> searchSiteMap = SearchSiteMap(siteAddress.UrlAddress);
+            int control = 0;
+            control = SearchSitePage(searchSiteMap,sa);
+            if (control == 0)
+            {
+                CreateSitemapeParallel(sa);
+            }
 
             var xml = this._db.SiteMapes.Where(x => x.SiteAddressId == sa.Id).Select(x => x.NameSateMape).ToList();
 

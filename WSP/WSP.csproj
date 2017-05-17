@@ -181,6 +181,7 @@
     <Compile Include="Entities\Processing\ProcessingAddressHistoryAsyncFromDB.cs" />
     <Compile Include="Entities\Processing\ProcessingAddress.cs" />
     <Compile Include="Entities\Processing\ProcessingAddressSearchSiteMapPage.cs" />
+    <Compile Include="Entities\Processing\ProcessingAddressResearchingSitmap.cs" />
     <Compile Include="Entities\SiteAddress.cs" />
     <Compile Include="Entities\SiteMape.cs" />
     <Compile Include="Entities\SitePage.cs" />

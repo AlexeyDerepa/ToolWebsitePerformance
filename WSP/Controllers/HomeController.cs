@@ -10,13 +10,9 @@ namespace WSP.Controllers
 {
     public class HomeController : Controller
     {
-        //ContextSite db = new ContextSite("WSP");
-        ProcessingAddress proc = new ProcessingAddress("WSP");
+        ProcessingAddress proc = new ProcessingAddress("DefaultConnection2");
         public ActionResult Index()
         {
-            //db.SiteAddresses.Add(new SiteAddress { UrlAddress = "https://translate.yandex.ru"});
-            //db.SaveChanges();
-            //proc.LookForSiteAddress(new SiteAddress { UrlAddress = "https://www.google.com.ua/se" });
             return View();
         }
         public ActionResult SearchDeepSiteMape(SiteAddress hostName)

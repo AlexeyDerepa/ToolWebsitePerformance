@@ -7,12 +7,13 @@ namespace WSP.Entities.Processing
 {
     public partial class ProcessingAddress
     {
-        private void SearchSitePage(List<string> listSiteMap, SiteAddress sa)
+        private int SearchSitePage(List<string> listSiteMap, SiteAddress sa)
         {
             List<TimeSpan> lts = new List<TimeSpan>();
             List<string> l_s_m;//list site mape
             string str = "";
             object o = new object();
+            int countFoundPages = 0;
 
             foreach (string xmlPage in listSiteMap)
             {
@@ -33,7 +34,7 @@ namespace WSP.Entities.Processing
 
                 if (l_s_m.Count == 0)
                     continue;
-
+                countFoundPages++;
                 SiteMape sm = new SiteMape { SiteAddress = sa, NameSateMape = xmlPage, TimeMax = lts.Max(), TimeMin = lts.Min(), TimeAverage = new TimeSpan((long)lts.Average(x => x.Ticks)) };
 
                 this._db.SiteMapes.Add(sm);
@@ -41,6 +42,7 @@ namespace WSP.Entities.Processing
 
                 SaveListPageThreadPool(l_s_m, sm);
             }
+            return countFoundPages;
         }
 
         private void SaveListPageThreadPool(List<string> list, SiteMape sm)
@@ -78,6 +80,12 @@ namespace WSP.Entities.Processing
                                     }
                                 }
             });
+
+            lock (this._threadLock)
+            {
+                    this._db.SaveChanges();
+            }
+
         }
 
         private List<string> SearchSiteMap(string hostName)
