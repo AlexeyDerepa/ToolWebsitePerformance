@@ -10,7 +10,7 @@ namespace WSP.Controllers
 {
     public class HomeController : Controller
     {
-        ProcessingAddress proc = new ProcessingAddress("DefaultConnection2");
+        ProcessingAddress proc = new ProcessingAddress("WSP");
         public ActionResult Index()
         {
             return View();

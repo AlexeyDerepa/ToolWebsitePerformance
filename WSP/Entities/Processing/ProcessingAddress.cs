@@ -88,7 +88,7 @@ namespace WSP.Entities.Processing
             System.Text.RegularExpressions.MatchCollection matches = regEx.Matches(target);
             foreach (System.Text.RegularExpressions.Match m in matches)
             {
-                list.Add(m.Groups[num].Value);
+                list.Add(m.Groups[num].Value.Trim());
             }
             return list;
         }
@@ -98,7 +98,7 @@ namespace WSP.Entities.Processing
             System.Text.RegularExpressions.Regex regEx = new System.Text.RegularExpressions.Regex(pattern, System.Text.RegularExpressions.RegexOptions.IgnoreCase);
             System.Text.RegularExpressions.Match match = regEx.Match(hostName);
 
-            return match.Groups[number].Value;
+            return match.Groups[number].Value.Trim();
         }
 
     }

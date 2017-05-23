@@ -11,7 +11,7 @@ namespace WSP.Controllers
 {
     public class PingController : ApiController
     {
-        ProcessingAddress proc = new ProcessingAddress("DefaultConnection2");
+        ProcessingAddress proc = new ProcessingAddress("WSP");
 
         public IEnumerable<string> POST([FromBody] SiteAddress hostName)
         {

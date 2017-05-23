@@ -11,7 +11,7 @@ namespace WSP.Controllers
 {
     public class LookForSiteAddressController : ApiController
     {
-        ProcessingAddress proc = new ProcessingAddress("DefaultConnection2");
+        ProcessingAddress proc = new ProcessingAddress("WSP");
         public IEnumerable<SiteAddress> Get()
         {
             return proc.HistoryRequests().Select(x => new SiteAddress { Id = x.Id, UrlAddress = x.UrlAddress });
