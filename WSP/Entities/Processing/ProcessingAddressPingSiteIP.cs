@@ -133,6 +133,11 @@ namespace WSP.Entities.Processing
             {
                 return "";
             }
+            catch (System.IO.IOException ioe)
+            {
+                return "";
+            }
+
         }
 
 
